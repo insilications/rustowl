@@ -161,7 +161,7 @@ impl Backend {
             command
                 .args([
                     "check",
-                    "--all-targets",
+                    // "--all-targets",
                     "--all-features",
                     "--keep-going",
                     "--message-format=json",
@@ -177,7 +177,8 @@ impl Backend {
             command
                 .env("RUSTC", &rustowlc_path)
                 .env("RUSTC_WORKSPACE_WRAPPER", &rustowlc_path);
-            toolchain::set_rustc_env(&mut command, &sysroot);
+            let extra_flags = "-Ctarget-cpu=native -Ctarget-feature=+aes,+sse2,+avx2,+prefer-256-bit,-vzeroupper -Copt-level=3 -Clinker=clang -Clink-arg=-fuse-ld=lld -Cprefer-dynamic=no";
+            toolchain::set_rustc_env(&mut command, &sysroot, &extra_flags);
 
             if log::max_level().to_level().is_none() {
                 command.stderr(std::process::Stdio::null());
@@ -277,7 +278,8 @@ impl Backend {
             .stdout(std::process::Stdio::piped())
             .kill_on_drop(true);
 
-        toolchain::set_rustc_env(&mut command, &sysroot);
+        let extra_flags = "-Ctarget-cpu=native -Ctarget-feature=+aes,+sse2,+avx2,+prefer-256-bit,-vzeroupper -Copt-level=3 -Clinker=clang -Clink-arg=-fuse-ld=lld -Cprefer-dynamic=no";
+        toolchain::set_rustc_env(&mut command, &sysroot, &extra_flags);
 
         if log::max_level().to_level().is_none() {
             command.stderr(std::process::Stdio::null());

@@ -120,35 +120,35 @@ export const bootstrapRustowl = async (dirPath: string): Promise<string> => {
   if (!rustowlCommand) {
     throw Error("failed to install RustOwl");
   }
-  await vscode.window.withProgress(
-    {
-      location: vscode.ProgressLocation.Notification,
-      title: "Setup RustOwl toolchain",
-      cancellable: false,
-    },
-    async (progress) => {
-      try {
-        const installer = spawn(rustowlCommand, ["toolchain", "install"], {
-          stdio: ["ignore", "ignore", "pipe"],
-        });
-        installer.stderr.addListener("data", (data) => {
-          if (`${data}`.includes("%")) {
-            progress.report({ message: "toolchain downloading", increment: 1 });
-          }
-        });
-        return new Promise((resolve, reject) => {
-          installer.addListener("exit", (code) => {
-            if (code === 0) {
-              resolve(code);
-            } else {
-              reject(`toolchain setup failed (exit code ${code})`);
-            }
-          });
-        });
-      } catch (e) {
-        vscode.window.showErrorMessage(`${e}`);
-      }
-    },
-  );
+  // await vscode.window.withProgress(
+  //   {
+  //     location: vscode.ProgressLocation.Notification,
+  //     title: "Setup RustOwl toolchain",
+  //     cancellable: false,
+  //   },
+  //   async (progress) => {
+  //     try {
+  //       const installer = spawn(rustowlCommand, ["toolchain", "install"], {
+  //         stdio: ["ignore", "ignore", "pipe"],
+  //       });
+  //       installer.stderr.addListener("data", (data) => {
+  //         if (`${data}`.includes("%")) {
+  //           progress.report({ message: "toolchain downloading", increment: 1 });
+  //         }
+  //       });
+  //       return new Promise((resolve, reject) => {
+  //         installer.addListener("exit", (code) => {
+  //           if (code === 0) {
+  //             resolve(code);
+  //           } else {
+  //             reject(`toolchain setup failed (exit code ${code})`);
+  //           }
+  //         });
+  //       });
+  //     } catch (e) {
+  //       vscode.window.showErrorMessage(`${e}`);
+  //     }
+  //   },
+  // );
   return rustowlCommand;
 };

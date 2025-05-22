@@ -20,6 +20,16 @@ export function activate(context: vscode.ExtensionContext) {
   const lspExec: Executable = {
     command: "rustowl",
     transport: TransportKind.stdio,
+    options: {
+      env: {
+        "PATH": "/insilications/gstuff/stuff/things/build/git-clr/codechecker-clr/build/CodeChecker/bin:/aot/stuff/dev/coverity/bin:/usr/lib64/sccache/bin:/usr/local/cuda-12.8/bin:/insilications/gstuff/stuff/things/build/git-clr/qtrepotools/bin:/home/insilications/.cargo/bin:/home/insilications/go/bin:/opt/apache-maven-3.9.5/bin:/home/insilications/.ghcup/bin:/home/insilications/.local/share/flatpak/exports/bin:/home/insilications/.deno/bin:/home/insilications/.dotnet:/insilications/gstuff/stuff/things/build/mybin:/usr/local/bin:/usr/local/sbin:/home/insilications/.local/bin:/opt/nvidia/bin:/usr/bin/haswell:/usr/bin:/usr/sbin:/home/insilications/.dotnet:/home/insilications/.dotnet/tools",
+        "RUSTUP_TOOLCHAIN": "nightly-2025-04-08-x86_64-unknown-linux-gnu",
+        "RUSTOWL_SYSROOTS": "/home/insilications/.rustup/toolchains/nightly-2025-04-08-x86_64-unknown-linux-gnu/",
+        "RUSTOWL_TOOLCHAIN": "/home/insilications/.rustup/toolchains/nightly-2025-04-08-x86_64-unknown-linux-gnu/",
+        "RUSTOWL_RUNTIME_DIRS": "/home/insilications/.rustup/toolchains/nightly-2025-04-08-x86_64-unknown-linux-gnu/",
+        "RUST_LOG": "debug",
+      }
+    }
   };
   const serverOptions: ServerOptions = lspExec;
   const clientOptions: LanguageClientOptions = {

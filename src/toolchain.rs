@@ -327,13 +327,29 @@ pub async fn get_rustowlc_path() -> String {
     }
 }
 
-pub fn set_rustc_env(command: &mut tokio::process::Command, sysroot: &Path) {
+pub fn set_rustc_env(command: &mut tokio::process::Command, sysroot: &Path, extra_flags: &str) {
+    const SEP: char = '\x1f'; // 0x1f = ASCII “Unit Separator”
+
+    // First the sysroot flag.
+    let sysroot_flag = format!("--sysroot={}", sysroot.display());
+
+    // Build the encoded list.
+    let mut encoded_flags = String::with_capacity(
+        sysroot_flag.len() + 1 + extra_flags.len(),
+    );
+    encoded_flags.push_str(&sysroot_flag);
+
+    // Split the user-supplied flags on ASCII whitespace and
+    // append each one separated by 0x1f.
+    for flag in extra_flags.split_whitespace() {
+        encoded_flags.push(SEP);
+        encoded_flags.push_str(flag);
+    }
+
     command
         .env("RUSTC_BOOTSTRAP", "1") // Support nightly projects
-        .env(
-            "CARGO_ENCODED_RUSTFLAGS",
-            format!("--sysroot={}", sysroot.display()),
-        );
+        // Pass our 0x1f-separated flag list to every rustc spawned by Cargo
+        .env("CARGO_ENCODED_RUSTFLAGS", encoded_flags);
 
     let driver_dir = rustc_driver_path(sysroot)
         .unwrap()
