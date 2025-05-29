@@ -4451,7 +4451,7 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zod@^3.25.15:
-  version "3.25.15"
-  resolved "https://registry.yarnpkg.com/zod/-/zod-3.25.15.tgz#20554ad6753c68c1de0fe21ff6125ef9b9ca3761"
-  integrity sha512-owVzP3IRiMeT3t72f+WpDeCa1xbPXZOJCxZRsotPHBDZwiwIaFAS1Vnf2eYTZLP2Zsc/106snGkhoCmO9YI2SQ==
+zod@^3.25.34:
+  version "3.25.34"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.25.34.tgz#8ecc7efc6dcd94e5a008cfee82e043dff2fa5ed8"
+  integrity sha512-lZHvSc2PpWdcfpHlyB33HA9nqP16GpC9IpiG4lYq9jZCJVLZNnWd6Y1cj79bcLSBKTkxepfpjckPv5Y5VOPlwA==
